@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KHTS METAR Widget</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      padding: 1rem;
+      border-radius: 12px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-size: 1.4em;
+      margin-bottom: 0.5em;
+    }
+    .metar {
+      background: #fff;
+      padding: 1em;
+      border-radius: 8px;
+      border-left: 6px solid #0077cc;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h2>Current METAR: KHTS</h2>
+  <div class="metar" id="metar">Loading...</div>
+
+  <script>
+    const metarBox = document.getElementById("metar");
+    fetch("https://aviationweather.gov/api/data/metar?ids=KHTS&format=raw")
+      .then(response => response.text())
+      .then(data => {
+        metarBox.textContent = data.trim();
+      })
+      .catch(() => {
+        metarBox.textContent = "Unable to load METAR data.";
+      });
+  </script>
+</body>
+</html>
